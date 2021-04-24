@@ -131,7 +131,7 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			int SIZE_FREE_LINE = HEIGHT;
 			ChangeSizeWindow(SIZE_WINDOW + 2, SIZE_FREE_LINE + 12);
 
-			cout << "\x1b[44m\x1b[97m\x1b[2J\x1b[H" << rtc;
+			cout << "\x1b[48;2;16;16;192m\x1b[97m\x1b[2J\x1b[H" << rtc;
 			for (i = 0; i < 12; i++) cout << hl;
 			cout << tc;
 			for (i = 0; i < SIZE_WINDOW / 2 - 19; i++) cout << hl;
@@ -158,7 +158,7 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << ltc << SPACE << vl << endl << vl << SPACE << vl;
 			cout << "\x1b[47m\x1b[30m";
 			for (i = 0; i < SIZE_WINDOW - 4; i++) cout << ul;
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			cout << vl << SPACE << vl << endl << vl << SPACE << rbc;
 			for (i = 0; i < SIZE_WINDOW - 4; i++) cout << hl;
 			cout << lbc << SPACE;
@@ -179,7 +179,7 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << vl << " WIDHT  = ";
 			if (select == 0) cout << "\x1b[47m\x1b[30m";
 			cout << (WIDTH / 100 ? "" : (WIDTH / 10 ? " " : "  ")) << WIDTH;
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			cout << SPACE << vl << " W - up";
 			for (i = 0; i < SIZE_WINDOW - 35; i++) cout << SPACE;
 			cout << "A - decrease " << vl << endl;
@@ -187,7 +187,7 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << vl << " HEIGHT = ";
 			if (select == 1) cout << "\x1b[47m\x1b[30m";
 			cout << (HEIGHT / 100 ? "" : (HEIGHT / 10 ? " " : "  ")) << HEIGHT;
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			cout << SPACE << vl << " S - down";
 			for (i = 0; i < SIZE_WINDOW - 37; i++) cout << SPACE;
 			cout << "D - increase " << vl << endl;
@@ -195,7 +195,7 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << vl << " CURSOR = ";
 			if (select == 2) cout << "\x1b[47m\x1b[30m";
 			cout << "  " << CURSOR;
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			cout << SPACE << vl << " TAB - default";
 			for (i = 0; i < SIZE_WINDOW - 45; i++) cout << SPACE;
 			cout << "ENTER - credits " << vl << endl;
@@ -207,21 +207,21 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << lbc << endl;
 			cout << "\x1b[47m\x1b[30m";
 			for (i = 0; i < SIZE_WINDOW + 2; i++) cout << SPACE;
-			cout << "\r\x1b[44m\x1b[97m";
+			cout << "\r\x1b[48;2;16;16;192m\x1b[97m";
 			Start = 0;
 		}
 		else
 		{
 			cout << "\r\x1b[4A\x1b[11C";
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			if (select == 0) cout << "\x1b[47m\x1b[30m";
 			cout << (WIDTH / 100 ? "" : (WIDTH / 10 ? " " : "  ")) << WIDTH;
 			cout << "\x1b[3D\x1b[1B";
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			if (select == 1) cout << "\x1b[47m\x1b[30m";
 			cout << (HEIGHT / 100 ? "" : (HEIGHT / 10 ? " " : "  ")) << HEIGHT;
 			cout << "\x1b[3D\x1b[1B";
-			cout << "\x1b[44m\x1b[97m";
+			cout << "\x1b[48;2;16;16;192m\x1b[97m";
 			if (select == 2) cout << "\x1b[47m\x1b[30m";
 			cout << "  " << CURSOR;
 			cout << "\r\x1b[2B";
@@ -245,11 +245,15 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			}
 			else if (cin == TAB)
 			{
-				WIDTH = 0;
-				HEIGHT = 0;
-				CURSOR = 178;
-				isInput = 1;
-				Start = 1;
+				if (WIDTH != 0 || HEIGHT != 0 || CURSOR != (char)178)
+				{
+					WIDTH = 0;
+					HEIGHT = 0;
+					CURSOR = 178;
+					isInput = 1;
+					Start = 1;
+				}
+				else cout << '\a';
 			}
 			else if (cin == ENTER)
 			{
@@ -304,14 +308,12 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 						CURSOR--;
 						if (CURSOR == 32) CURSOR = -2;
 						isInput = 1;
-						Start = 1;
 					}
 					else if (cin == c_d || cin == c_D)
 					{
 						CURSOR++;
 						if (CURSOR == -1) CURSOR = 33;
 						isInput = 1;
-						Start = 1;
 					}
 					else cout << '\a';
 				}

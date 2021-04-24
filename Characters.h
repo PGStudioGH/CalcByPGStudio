@@ -1,54 +1,54 @@
 #pragma once
 
-constexpr char BACKSPACE = 8;
-constexpr char TAB = 9;
-constexpr char ENTER = 13;
-constexpr char ESC = 27;
-constexpr char SPACE = 32;
+#define BACKSPACE (char)8
+#define TAB (char)9
+#define ENTER (char)13
+#define ESC (char)27
+#define SPACE (char)32
 
-constexpr char lb = 40; //LEFT BRACKET
-constexpr char rb = 41; //RIGHT BRACKET
+#define lb (char)40 //LEFT BRACKET
+#define rb (char)41 //RIGHT BRACKET
 
-constexpr char ad = 43; //ADD
-constexpr char ms = 45; //MINUS
-constexpr char mp = 42; //MULTIPLICATION
-constexpr char ds = 47; //DIVISION
-constexpr char pw = 94; //POWER
+#define ad (char)43 //ADD
+#define ms (char)45 //MINUS
+#define mp (char)42 //MULTIPLICATION
+#define ds (char)47 //DIVISION
+#define pw (char)94 //POWER
 
-constexpr char pt = 46; //POINT
-constexpr char cm = 44; //COMMA
+#define pt (char)46 //POINT
+#define cm (char)44 //COMMA
 
-constexpr char n0 = 48; //NUMBER 0
-constexpr char n1 = 49; //NUMBER 1
-constexpr char n2 = 50; //NUMBER 2
-constexpr char n3 = 51; //NUMBER 3
-constexpr char n4 = 52; //NUMBER 4
-constexpr char n5 = 53; //NUMBER 5
-constexpr char n6 = 54; //NUMBER 6
-constexpr char n7 = 55; //NUMBER 7
-constexpr char n8 = 56; //NUMBER 8
-constexpr char n9 = 57; //NUMBER 9
+#define n0 (char)48 //NUMBER 0
+#define n1 (char)49 //NUMBER 1
+#define n2 (char)50 //NUMBER 2
+#define n3 (char)51 //NUMBER 3
+#define n4 (char)52 //NUMBER 4
+#define n5 (char)53 //NUMBER 5
+#define n6 (char)54 //NUMBER 6
+#define n7 (char)55 //NUMBER 7
+#define n8 (char)56 //NUMBER 8
+#define n9 (char)57 //NUMBER 9
 
-constexpr char c_A = 65; //CHARACTER BIG A
-constexpr char c_D = 68; //CHARACTER BIG D
-constexpr char c_S = 83; //CHARACTER BIG S
-constexpr char c_W = 87; //CHARACTER BIG W
-constexpr char c_a = 97; //CHARACTER LOW A
-constexpr char c_d = 100; //CHARACTER LOW D
-constexpr char c_s = 115; //CHARACTER LOW S
-constexpr char c_w = 119; //CHARACTER LOW W
+#define c_A (char)65 //CHARACTER BIG A
+#define c_D (char)68 //CHARACTER BIG D
+#define c_S (char)83 //CHARACTER BIG S
+#define c_W (char)87 //CHARACTER BIG W
+#define c_a (char)97 //CHARACTER LOW A
+#define c_d (char)100 //CHARACTER LOW D
+#define c_s (char)115 //CHARACTER LOW S
+#define c_w (char)119 //CHARACTER LOW W
 
-constexpr char ul = 95; //UNDERLINE
+#define ul (char)95 //UNDERLINE
 
-constexpr char hl = 196; //HORIZONTAL LINE
-constexpr char vl = 179; //VERTICAL LINE
+#define hl (char)196 //HORIZONTAL LINE
+#define vl (char)179 //VERTICAL LINE
 
-constexpr char ltc = 191; //LEFT TOP CORNER
-constexpr char rtc = 218; //RIGHT TOP CORNER
-constexpr char lbc = 217; //LEFT BOTTOM CORNER
-constexpr char rbc = 192; //RIGHT BOTTOM CORNER
+#define ltc (char)191 //LEFT TOP CORNER
+#define rtc (char)218 //RIGHT TOP CORNER
+#define lbc (char)217 //LEFT BOTTOM CORNER
+#define rbc (char)192 //RIGHT BOTTOM CORNER
 
-constexpr char tc = 194; //TOP CORNER
-constexpr char rc = 195; //RIGHT CORNER
-constexpr char lc = 180; //LEFT CORNER
-constexpr char bc = 193; //BOTTOM CORNER
+#define tc (char)194 //TOP CORNER
+#define rc (char)195 //RIGHT CORNER
+#define lc (char)180 //LEFT CORNER
+#define bc (char)193 //BOTTOM CORNER

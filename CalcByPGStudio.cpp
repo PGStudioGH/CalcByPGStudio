@@ -198,7 +198,7 @@ int CalcByPGStudio()
 
 		if (Start)
 		{
-			cout << "\x1b[44m\x1b[97m" << rtc;
+			cout << "\x1b[48;2;16;16;192m\x1b[97m" << rtc;
 			for (i = 0; i < 12; i++) cout << hl;
 			cout << tc;
 			for (i = 0; i < SIZE_WINDOW / 2 - 19; i++) cout << hl;
@@ -226,7 +226,7 @@ int CalcByPGStudio()
 			for (i = 0; i < SIZE_LINE; i++) cout << hl;
 			cout << ltc << SPACE;
 			cout << vl << endl << vl << SPACE << vl;
-			cout << "\x1b[47m\x1b[30m" << str << "\x1b[44m\x1b[97m";
+			cout << "\x1b[47m\x1b[30m" << str << "\x1b[48;2;16;16;192m\x1b[97m";
 			cout << vl << SPACE << vl << endl << vl << SPACE << rbc;
 			for (i = 0; i < SIZE_LINE; i++) cout << hl;
 			cout << lbc << SPACE;
@@ -264,7 +264,7 @@ int CalcByPGStudio()
 			cout << "\r\x1b[" << (7 + SIZE_FREE_LINE / 2) << "A";
 			cout << "\x1b[3C" << str;
 			cout << "\r\x1b[" << (3 + SIZE_FREE_LINE / 2) << "B";
-			cout << "\x1b[2C\x1b[44m\x1b[97mYou can write only:";
+			cout << "\x1b[2C\x1b[48;2;16;16;192m\x1b[97mYou can write only:";
 			i = 0;
 			while (CanPress[i] != '\0') cout << ' ' << CanPress[i++];
 			cout << "\r\x1b[4B\r\x1b[47m\x1b[30mResult: ";
