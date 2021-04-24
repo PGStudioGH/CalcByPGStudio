@@ -9,7 +9,7 @@ If anything, this is my first application.
 Now you can investigate my source code.
 With pleasure!
 
-###System requirements:
+### System requirements:
 - CPU: 1x1.0 GHZ (32-bit)
 - RAM: 8 MB
 - ROM: 318 KB
