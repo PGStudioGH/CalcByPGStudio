@@ -12,5 +12,5 @@ With pleasure!
 ### System requirements:
 - CPU: 1x1.0 GHZ (32-bit)
 - RAM: 8 MB
-- ROM: 318 KB
+- HDD: 318 KB
 - OS: Windows Vista, Windows 7,  Windows 8,  Windows 8.1,  Windows 10
