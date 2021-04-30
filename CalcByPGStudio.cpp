@@ -1,11 +1,11 @@
 #include <iostream>
 #include <conio.h>
-#include <iomanip>
 
 #include "Setting.h"
 #include "Characters.h"
 #include "SystemArray.h"
-#include "Calculate.h"
+#include "isInput.h"
+#include "OutputResult.h"
 
 using namespace std;
 
@@ -20,8 +20,8 @@ int CalcByPGStudio()
 	int SIZE_LINE = SIZE_WINDOW - 4;
 
 	system("title Calculator by PGStudio");
+	system("color 07");
 	ChangeSizeWindow(SIZE_WINDOW + 2, SIZE_FREE_LINE + 12);
-	ios::sync_with_stdio(false);
 
 	bool isPoint = 0;
 	bool isZero = 0;
@@ -35,166 +35,13 @@ int CalcByPGStudio()
 	str[i++] = CURSOR;
 	int temp = SIZE_LINE;
 	addArray(str, temp, '\0');
-	while (i < SIZE_LINE) str[i++] = ul;
+	while (i < SIZE_LINE) str[i++] = SPACE;
 
 	while (cin != ESC)
 	{
+		char CanPress[21];
 		int AddBrackets = count_left_brackets - count_right_brackets;
-		int count_can = 0;
-		char CanPress[] = "                   \0";
-
-		if (size != 0 && str[size - 1] == rb)
-		{
-			if (size + 1 < SIZE_LINE - AddBrackets)
-			{
-				if (!isZero || isPoint)
-				{
-					int j = 0;
-					while (j < 10) CanPress[count_can++] = n0 + j++;
-				}
-			}
-		}
-		else if (size < SIZE_LINE - AddBrackets)
-		{
-			if (isZero && !isPoint)
-			{
-				if (size + 1 < SIZE_LINE - AddBrackets)
-				{
-					int j = 0;
-					while (j < 10) CanPress[count_can++] = n0 + j++;
-				}
-			}
-			else
-			{
-				int j = 0;
-				while (j < 10) CanPress[count_can++] = n0 + j++;
-			}
-		}
-
-		if (size != 0 && size + 1 < SIZE_LINE - AddBrackets)
-		{
-			if (str[size - 1] == pt)
-			{
-				CanPress[count_can++] = ad;
-				CanPress[count_can++] = ms;
-			}
-			else if (str[size - 1] == lb)
-			{
-				if (size < SIZE_LINE - AddBrackets)
-				{
-					CanPress[count_can++] = ms;
-				}
-			}
-			else if (!(str[size - 1] == ad || str[size - 1] == ms ||
-				str[size - 1] == mp || str[size - 1] == ds || str[size - 1] == pw))
-			{
-				if (size < SIZE_LINE - AddBrackets)
-				{
-					CanPress[count_can++] = ad;
-					CanPress[count_can++] = ms;
-				}
-			}
-		}
-		else if (size == SIZE_LINE - 1)
-		{
-			if (str[size - 1] == pt)
-			{
-				CanPress[count_can++] = ad;
-				CanPress[count_can++] = ms;
-			}
-		}
-		else if (size + 1 < SIZE_LINE - AddBrackets)
-		{
-			CanPress[count_can++] = ms;
-		}
-
-		if (size != 0)
-		{
-			if (size + 1 < SIZE_LINE - AddBrackets)
-			{
-				if (str[size - 1] == pt)
-				{
-					CanPress[count_can++] = mp;
-					CanPress[count_can++] = ds;
-					CanPress[count_can++] = pw;
-				}
-				else if (str[size - 1] != lb)
-				{
-					if (!(str[size - 1] == mp || str[size - 1] == ad ||
-						str[size - 1] == ms || str[size - 1] == ds ||
-						str[size - 1] == pw))
-					{
-						CanPress[count_can++] = mp;
-						CanPress[count_can++] = ds;
-						CanPress[count_can++] = pw;
-					}
-				}
-			}
-			else if (size == SIZE_LINE - 1)
-			{
-				if (str[size - 1] == pt)
-				{
-					CanPress[count_can++] = mp;
-					CanPress[count_can++] = ds;
-					CanPress[count_can++] = pw;
-				}
-			}
-		}
-
-		if (!isPoint)
-		{
-			if (size == 0)
-			{
-				CanPress[count_can++] = pt;
-				CanPress[count_can++] = cm;
-			}
-			else if (str[size - 1] == mp || str[size - 1] == ad || str[size - 1] == ms ||
-				 str[size - 1] == ds || str[size - 1] == pw || str[size - 1] == lb)
-			{
-				if (size + 2 < SIZE_LINE - AddBrackets)
-				{
-					CanPress[count_can++] = pt;
-					CanPress[count_can++] = cm;
-				}
-			}
-			else if (str[size - 1] == rb)
-			{
-				if (size + 3 < SIZE_LINE - AddBrackets)
-				{
-					CanPress[count_can++] = pt;
-					CanPress[count_can++] = cm;
-				}
-			}
-			else if (size + 1 < SIZE_LINE - AddBrackets)
-			{
-				CanPress[count_can++] = pt;
-				CanPress[count_can++] = cm;
-			}
-		}
-
-		if (size != 0 && n0 <= str[size - 1] && str[size - 1] <= n9)
-		{
-			if (size + 3 < SIZE_LINE - AddBrackets)
-			{
-				CanPress[count_can++] = lb;
-			}
-		}
-		else if (size != 0 && str[size - 1] == rb)
-		{
-			if (size + 3 < SIZE_LINE - AddBrackets)
-			{
-				CanPress[count_can++] = lb;
-			}
-		}
-		else if (size + 2 < SIZE_LINE - AddBrackets)
-		{
-			CanPress[count_can++] = lb;
-		}
-
-		if (size + 1 < SIZE_LINE - AddBrackets && count_left_brackets > count_right_brackets)
-		{
-			CanPress[count_can] = rb;
-		}
+		isInput(CanPress, str, size, SIZE_LINE, count_left_brackets, count_right_brackets, isZero, isPoint);
 
 		if (Start)
 		{
@@ -242,9 +89,9 @@ int CalcByPGStudio()
 			cout << lc << endl;
 
 			i = 0;
-			cout << vl << " You can write only:";
-			while (CanPress[i] != '\0') cout << ' ' << CanPress[i++];
-			for (i = 0; i < SIZE_WINDOW - 58; i++) cout << SPACE;
+			cout << vl << " You can write only: ";
+			while (CanPress[i] != '\0') cout << CanPress[i++] << ' ';
+			for (i = 0; i < SIZE_WINDOW - 59; i++) cout << SPACE;
 			cout << vl << endl << rc;
 			for (i = 0; i < SIZE_WINDOW; i++) cout << hl;
 			cout << lc << endl << vl << " TAB - clear all";
@@ -270,78 +117,33 @@ int CalcByPGStudio()
 			cout << "\r\x1b[4B\r\x1b[47m\x1b[30mResult: ";
 		}
 
+		OutputResult(str, size, AddBrackets);
 
-		i = 0;
-		int new_size = size;
-		int count_brackets = AddBrackets;
-		if (!new_size) new_size++;
-		char* line = new char[new_size];
-		line[0] = n0;
-		while (i < size)
-		{
-			line[i] = str[i];
-			i++;
-		}
-
-		if (line[new_size - 1] == lb) addArray(line, new_size, n0);
-
-		if (line[0] == ms)
-		{
-			addArrayIndex(line, new_size, 0, n0);
-		}
-
-		i = 1;
-		while (i < new_size)
-		{
-			if (line[i - 1] == lb && line[i] == ms)
-			{
-				addArrayIndex(line, new_size, i, n0);
-			}
-			i++;
-		}
-
-		if (line[new_size - 1] == mp || line[new_size - 1] == ad ||
-			line[new_size - 1] == ms || line[new_size - 1] == pt ||
-			line[new_size - 1] == ds || line[new_size - 1] == pw)
-		{
-			removeArray(line, new_size, new_size - 1);
-		}
-
-		while (line[new_size - 1] == lb)
-		{
-			removeArray(line, new_size, new_size - 1);
-			count_brackets--;
-		}
-		if (line[new_size - 1] == mp || line[new_size - 1] == ad ||
-			line[new_size - 1] == ms || line[new_size - 1] == pt ||
-			line[new_size - 1] == ds || line[new_size - 1] == pw)
-		{
-			removeArray(line, new_size, new_size - 1);
-		}
-
-		while (count_brackets)
-		{
-			addArray(line, new_size, rb);
-			count_brackets--;
-		}
-
-		addArray(line, new_size, '\0');
-		bool isDivisionByZero = 0;
-		double result = Calculate(line, new_size, isDivisionByZero);
-		if (isDivisionByZero)
-		{
-			cout << "Error! Cannot be divided by zero!";
-		}
-		else
-		{
-			cout << setprecision(15) << result;
-		}
-		delete[] line;
-
+		cin = 0;
 		bool isInput = 0;
+		bool isVisibleCursor = 1;
+		clock_t msec = clock() + 100;
 		while (!isInput)
 		{
-			cin = _getch();
+			while (!cin)
+			{
+				if (clock() > msec)
+				{
+					if (size != SIZE_LINE - AddBrackets)
+					{
+						isVisibleCursor = !isVisibleCursor;
+						if (isVisibleCursor) str[size] = CURSOR;
+						else str[size] = SPACE;
+						msec = clock() + 100;
+
+						cout << "\r\x1b[" << (7 + SIZE_FREE_LINE / 2) << "A";
+						cout << "\x1b[" << size + 3 << 'C' << str[size];
+						cout << "\r\x1b[" << (7 + SIZE_FREE_LINE / 2) << "B";
+					}
+				}
+
+				if (_kbhit()) cin = _getch();
+			}
 
 			i = 0;
 			if (cin == SPACE) cin = '\0';
@@ -353,9 +155,17 @@ int CalcByPGStudio()
 			else if (size)
 			{
 				if (cin == BACKSPACE || cin == TAB) isInput = 1;
-				else cout << '\a';
+				else
+				{
+					cin = 0;
+					cout << '\a';
+				}
 			}
-			else cout << '\a';
+			else
+			{
+				cin = 0;
+				cout << '\a';
+			}
 		}
 
 		if (cin != ESC)
@@ -386,7 +196,7 @@ int CalcByPGStudio()
 
 						else if (str[size - 1] == lb)
 						{
-							str[SIZE_LINE - AddBrackets] = ul;
+							str[SIZE_LINE - AddBrackets] = SPACE;
 							count_left_brackets--;
 						}
 
@@ -433,7 +243,7 @@ int CalcByPGStudio()
 						}
 
 						str[--size] = CURSOR;
-						if (size + 1 != SIZE_LINE - AddBrackets) str[size + 1] = ul;
+						if (size + 1 != SIZE_LINE - AddBrackets) str[size + 1] = SPACE;
 					}
 					break;
 				}
@@ -444,6 +254,7 @@ int CalcByPGStudio()
 					SIZE_WINDOW = WIDTH + 59;
 					SIZE_FREE_LINE = HEIGHT;
 					SIZE_LINE = SIZE_WINDOW - 4;
+					system("title Calculator by PGStudio");
 					ChangeSizeWindow(SIZE_WINDOW + 2, SIZE_FREE_LINE + 12);
 
 					Start = 1;
@@ -453,7 +264,7 @@ int CalcByPGStudio()
 					new_str[i++] = CURSOR;
 					int temp = SIZE_LINE;
 					addArray(new_str, temp, '\0');
-					while (i < SIZE_LINE) new_str[i++] = ul;
+					while (i < SIZE_LINE) new_str[i++] = SPACE;
 					delete[] str;
 					str = new_str;
 				}
@@ -465,7 +276,7 @@ int CalcByPGStudio()
 					isPoint = 0;
 					isZero = 0;
 
-					for (size = 1; size < SIZE_LINE; size++) str[size] = ul;
+					for (size = 1; size < SIZE_LINE; size++) str[size] = SPACE;
 					str[size = 0] = CURSOR;
 
 					break;
@@ -479,11 +290,11 @@ int CalcByPGStudio()
 						{
 							if (str[size - 1] == n0)
 							{
-								str[size--] = ul;
+								str[size--] = SPACE;
 							}
 							else
 							{
-								str[size] = ul;
+								str[size] = SPACE;
 								isPoint = 0;
 							}
 						}
@@ -533,27 +344,27 @@ int CalcByPGStudio()
 						{
 							if (str[size - 1] == n0)
 							{
-								str[size--] = ul;
+								str[size--] = SPACE;
 							}
 							else
 							{
-								str[size] = ul;
+								str[size] = SPACE;
 								isPoint = 0;
 							}
 						}
 
 						if (str[size - 1] == lb)
 						{
-							str[size--] = ul;
-							str[SIZE_LINE - AddBrackets] = ul;
+							str[size--] = SPACE;
+							str[SIZE_LINE - AddBrackets] = SPACE;
 							count_left_brackets--;
 							AddBrackets = count_left_brackets - count_right_brackets;
 						}
 						else if (str[size - 2] == lb && (str[size - 1] == ad || str[size - 1] == ms))
 						{
-							str[size--] = ul;
-							str[size--] = ul;
-							str[SIZE_LINE - AddBrackets] = ul;
+							str[size--] = SPACE;
+							str[size--] = SPACE;
+							str[SIZE_LINE - AddBrackets] = SPACE;
 							count_left_brackets--;
 							AddBrackets = count_left_brackets - count_right_brackets;
 						}
@@ -561,7 +372,7 @@ int CalcByPGStudio()
 							str[size - 1] == ms || str[size - 1] == pt ||
 							str[size - 1] == ds || str[size - 1] == pw)
 						{
-							str[SIZE_LINE - AddBrackets] = ul;
+							str[SIZE_LINE - AddBrackets] = SPACE;
 							str[size - 1] = cin;
 							count_right_brackets++;
 							AddBrackets = count_left_brackets - count_right_brackets;
@@ -570,7 +381,7 @@ int CalcByPGStudio()
 						}
 						else
 						{
-							str[SIZE_LINE - AddBrackets] = ul;
+							str[SIZE_LINE - AddBrackets] = SPACE;
 							str[size++] = cin;
 							count_right_brackets++;
 							AddBrackets = count_left_brackets - count_right_brackets;
@@ -619,11 +430,11 @@ int CalcByPGStudio()
 						{
 							if (str[size - 1] == n0)
 							{
-								str[size--] = ul;
+								str[size--] = SPACE;
 							}
 							else
 							{
-								str[size] = ul;
+								str[size] = SPACE;
 								isPoint = 0;
 							}
 						}
@@ -646,11 +457,11 @@ int CalcByPGStudio()
 						{
 							if (str[size - 1] == n0)
 							{
-								str[size--] = ul;
+								str[size--] = SPACE;
 							}
 							else
 							{
-								str[size] = ul;
+								str[size] = SPACE;
 								isPoint = 0;
 							}
 						}
@@ -714,6 +525,7 @@ int CalcByPGStudio()
 		}
 	}
 	delete[] str;
+
 	cout << "\a\x1b[40m\x1b[37m\x1b[2J\x1b[H";
 	cout << "Thank you for using :-)" << endl;
 	return 0;

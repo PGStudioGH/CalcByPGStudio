@@ -116,7 +116,6 @@ void Load(int &WIDTH, int &HEIGHT, char &CURSOR)
 void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 {
 	system("title Setting");
-	ios::sync_with_stdio(false);
 
 	int i = 0;
 	int select = 0;
