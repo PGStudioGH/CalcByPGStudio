@@ -1,6 +1,9 @@
 #include <iostream>
 #include <conio.h>
 
+#include "Window.h"
+#include "Error.h"
+
 //Background
 #define B0 "\x1b[48;2;200;212;93m"
 #define B1 "\x1b[48;2;99;171;63m"
@@ -44,6 +47,7 @@ using namespace std;
 void Credits()
 {
 	system("title Credits");
+	system("color 07");
 	system("@mode con cols=64 lines=32");
 	cout << '\a';
 
@@ -2209,20 +2213,16 @@ void Credits()
 	}
 	///////////////////////////////////////////////////////////////////////////
 
-	system("color 07");
-	for (l = 0; l < 64; l++)
+	string screen = "\x1b[H";
+	for (l = 0; l < 32; l++)
 	{
-		cout << c[0][l] << (char)220;
-	}
-	for (l = 1; l < 32; l++)
-	{
-		cout << endl;
 		for (int i = 0; i < 64; i++)
 		{
-			cout << c[l][i] << (char)220;
+			screen += c[l][i] + (char)220;
 		}
 	}
-
+	cout << screen;
+	
 	l = clock() + 500;
 	while (clock() < l);
 	cout << "\r\x1b[18A\x1b[18C\x1b[97m";
@@ -2265,7 +2265,12 @@ void Credits()
 	cout << B11 << " any key to continu";
 	cout << B12 << "e!";
 	cout << "\x1b[18C\x1b[2B";
-	system("pause >nul");
+	char cin = 0;
+	while (!cin)
+	{
+		if (_kbhit()) cin = _getch();
+		else if (CheckFullScreen()) Error("Don't press F11! You make bug in CMD", 1);
+	}
 
 	cout << "\x1b[2J\x1b[H";
 	for (l = 0; l < 32; l++)

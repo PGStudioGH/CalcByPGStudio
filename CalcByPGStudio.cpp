@@ -1,9 +1,10 @@
 #include <iostream>
 #include <conio.h>
 
+#include "Window.h"
 #include "Setting.h"
+#include "Error.h"
 #include "Characters.h"
-#include "SystemArray.h"
 #include "isInput.h"
 #include "OutputResult.h"
 
@@ -11,6 +12,8 @@ using namespace std;
 
 int CalcByPGStudio()
 {
+	cout << "\x1b[?25l";
+
 	int WIDTH = 0, HEIGHT = 0;
 	char CURSOR = 0;
 	Load(WIDTH, HEIGHT, CURSOR);
@@ -26,15 +29,15 @@ int CalcByPGStudio()
 	bool isPoint = 0;
 	bool isZero = 0;
 	bool Start = 1;
+	bool FS = 0;
 	int i = 0;
 	int size = 0;
 	int count_left_brackets = 0;
 	int count_right_brackets = 0;
 	char cin = 0;
-	char *str = new char[SIZE_LINE];
+	char *str = new char[SIZE_LINE + 1];
+	str[SIZE_LINE] = '\0';
 	str[i++] = CURSOR;
-	int temp = SIZE_LINE;
-	addArray(str, temp, '\0');
 	while (i < SIZE_LINE) str[i++] = SPACE;
 
 	while (cin != ESC)
@@ -123,7 +126,7 @@ int CalcByPGStudio()
 		bool isInput = 0;
 		bool isVisibleCursor = 1;
 		clock_t msec = clock() + 100;
-		while (!isInput)
+		while (!isInput && !FS)
 		{
 			while (!cin)
 			{
@@ -143,6 +146,7 @@ int CalcByPGStudio()
 				}
 
 				if (_kbhit()) cin = _getch();
+				else if (CheckFullScreen()) Error("Don't press F11! You make bug in CMD", 1);
 			}
 
 			i = 0;
@@ -167,6 +171,8 @@ int CalcByPGStudio()
 				cout << '\a';
 			}
 		}
+
+		if (!Start) FS = 0;
 
 		if (cin != ESC)
 		{
@@ -260,10 +266,9 @@ int CalcByPGStudio()
 					Start = 1;
 					size = 0;
 					i = 0;
-					char* new_str = new char[SIZE_LINE];
+					char* new_str = new char[SIZE_LINE + 1];
+					new_str[SIZE_LINE] = '\0';
 					new_str[i++] = CURSOR;
-					int temp = SIZE_LINE;
-					addArray(new_str, temp, '\0');
 					while (i < SIZE_LINE) new_str[i++] = SPACE;
 					delete[] str;
 					str = new_str;

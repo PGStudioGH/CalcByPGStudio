@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <fstream>
 
+#include "Window.h"
+#include "Error.h"
 #include "Characters.h"
 #include "Credits.h"
 
@@ -226,10 +228,16 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << "\r\x1b[2B";
 		}
 
+		cin = 0;
 		bool isInput = 0;
 		while (!isInput)
 		{
-			cin = _getch();
+			while (!cin)
+			{
+				if (_kbhit()) cin = _getch();
+				else if (CheckFullScreen()) Error("Don't press F11! You make bug in CMD", 1);
+			}
+
 			if (cin == c_s || cin == c_S)
 			{
 				select++;

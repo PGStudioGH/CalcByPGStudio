@@ -1,8 +1,6 @@
 #include <iostream>
 #include <iomanip>
 
-using namespace std;
-
 #include "Characters.h"
 #include "Calculate.h"
 #include "SystemArray.h"
@@ -76,11 +74,11 @@ void OutputResult(char *str, int size, int AddBrackets)
 	double result = Calculate(line, size, isDivisionByZero);
 	if (isDivisionByZero)
 	{
-		cout << "Error! Cannot be divided by zero!";
+		std::cout << "Error! Cannot be divided by zero!";
 	}
 	else
 	{
-		cout << setprecision(15) << result;
+		std::cout << std::setprecision(15) << result;
 	}
 
 	delete[] line;

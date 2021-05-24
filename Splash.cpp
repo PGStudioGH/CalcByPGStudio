@@ -3,16 +3,24 @@
 
 using namespace std;
 
+#include "Window.h"
+#include "Error.h"
+
 void Pause(int milliseconds, bool &off)
 {
 	milliseconds += clock();
 	while (!off && clock() < milliseconds)
 	{
+		if (clock() % 200 < 100) cout << "\x1b[?25l";
+		else cout << "\x1b[?25h";
+
 		if (_kbhit())
 		{
 			off = _getch();
 		}
+		else if (CheckFullScreen()) Error("Don't press F11! You make bug in CMD", 1);
 	}
+	cout << "\x1b[?25h";
 }
 
 void AnimateText(const char str[], bool &off)
@@ -163,5 +171,5 @@ void Splash()
 	Pause(500, off);
 	if (!off) cout << '\a';
 	Pause(2500, off);
-	if (!off) cout << "\a\x1b[2J\x1b[H";
+	cout << "\a\x1b[2J\x1b[H";
 }
