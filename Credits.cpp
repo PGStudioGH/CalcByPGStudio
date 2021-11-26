@@ -1,5 +1,6 @@
 #include <iostream>
 #include <conio.h>
+#include <Windows.h>
 
 #include "Window.h"
 #include "Error.h"
@@ -2212,7 +2213,6 @@ void Credits()
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////
-
 	string screen = "\x1b[H";
 	for (l = 0; l < 32; l++)
 	{

@@ -9,13 +9,11 @@ using namespace std;
 int main()
 {
 	createWindow();
-	cout << "\x1b[?25l";
-
+	
 	Splash();
 
-	cout << endl << "Exited with code: " << CalcByPGStudio() << endl << endl;
-	system("title Result");
-	system("pause");
+	cout << endl << "Exited with code: " << CalcByPGStudio() << endl << endl << "\x1b[?25h";
+	system("title cmd.exe");
 
 	return 0;
 }

@@ -23,8 +23,8 @@ void createWindow()
 	GetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &fontInfo);
 	fontInfo.cbSize = sizeof(fontInfo);
 	fontInfo.FontWeight = FW_NORMAL;
-	fontInfo.dwFontSize.X = 8;
-	fontInfo.dwFontSize.Y = 12;
+	fontInfo.dwFontSize.X = 8;//18
+	fontInfo.dwFontSize.Y = 12;//24
 	wcscpy(fontInfo.FaceName, L"Terminal");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &fontInfo);
 }

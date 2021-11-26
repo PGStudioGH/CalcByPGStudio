@@ -228,10 +228,10 @@ void Setting(int& WIDTH, int& HEIGHT, char& CURSOR)
 			cout << "\r\x1b[2B";
 		}
 
-		cin = 0;
 		bool isInput = 0;
 		while (!isInput)
 		{
+			cin = 0;
 			while (!cin)
 			{
 				if (_kbhit()) cin = _getch();

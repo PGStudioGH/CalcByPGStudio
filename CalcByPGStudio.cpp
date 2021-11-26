@@ -29,7 +29,6 @@ int CalcByPGStudio()
 	bool isPoint = 0;
 	bool isZero = 0;
 	bool Start = 1;
-	bool FS = 0;
 	int i = 0;
 	int size = 0;
 	int count_left_brackets = 0;
@@ -42,69 +41,98 @@ int CalcByPGStudio()
 
 	while (cin != ESC)
 	{
-		char CanPress[21];
+		char CanPress[20];
 		int AddBrackets = count_left_brackets - count_right_brackets;
 		isInput(CanPress, str, size, SIZE_LINE, count_left_brackets, count_right_brackets, isZero, isPoint);
 
 		if (Start)
 		{
-			cout << "\x1b[48;2;16;16;192m\x1b[97m" << rtc;
-			for (i = 0; i < 12; i++) cout << hl;
-			cout << tc;
-			for (i = 0; i < SIZE_WINDOW / 2 - 19; i++) cout << hl;
-			cout << " Calculator ";
-			for (i = 0; i < SIZE_WINDOW / 2 - 6 + SIZE_WINDOW % 2; i++) cout << hl;
-			cout << ltc << endl;
-
-			cout << vl << " ESC - exit " << vl;
-			for (i = 0; i < SIZE_WINDOW - 13; i++) cout << SPACE;
-			cout << vl << endl;
-			cout << rc;
-			for (i = 0; i < 12; i++) cout << hl;
-			cout << lbc;
-			for (i = 0; i < SIZE_WINDOW - 13; i++) cout << SPACE;
+			string screen = "\x1b[H\x1b[48;2;16;16;192m\x1b[97m";
+			screen += rtc;
+			for (i = 0; i < 12; i++) screen += hl;
+			screen += tc;
+			for (i = 0; i < SIZE_WINDOW / 2 - 19; i++) screen += hl;
+			screen += " Calculator ";
+			for (i = 0; i < SIZE_WINDOW / 2 - 6 + SIZE_WINDOW % 2; i++) screen += hl;
+			screen += ltc;
+			screen += vl;
+			screen += " ESC - exit ";
+			screen += vl;
+			for (i = 0; i < SIZE_WINDOW - 13; i++) screen += SPACE;
+			screen += vl;
+			screen += rc;
+			for (i = 0; i < 12; i++) screen += hl;
+			screen += lbc;
+			for (i = 0; i < SIZE_WINDOW - 13; i++) screen += SPACE;
 
 			i = 0;
 			while (i++ < SIZE_FREE_LINE / 2 + SIZE_FREE_LINE % 2)
 			{
-				cout << vl << endl << vl;
-				for (int j = 0; j < SIZE_WINDOW; j++) cout << SPACE;
+				screen += vl;
+				screen += vl;
+				for (int j = 0; j < SIZE_WINDOW; j++) screen += SPACE;
 			}
-			cout << vl << endl << vl << SPACE;
-
-			cout << rtc;
-			for (i = 0; i < SIZE_LINE; i++) cout << hl;
-			cout << ltc << SPACE;
-			cout << vl << endl << vl << SPACE << vl;
-			cout << "\x1b[47m\x1b[30m" << str << "\x1b[48;2;16;16;192m\x1b[97m";
-			cout << vl << SPACE << vl << endl << vl << SPACE << rbc;
-			for (i = 0; i < SIZE_LINE; i++) cout << hl;
-			cout << lbc << SPACE;
+			screen += vl;
+			screen += vl;
+			screen += SPACE;
+			screen += rtc;
+			for (i = 0; i < SIZE_LINE; i++) screen += hl;
+			screen += ltc;
+			screen += SPACE;
+			screen += vl;
+			screen += vl;
+			screen += SPACE;
+			screen += vl;
+			screen += "\x1b[47m\x1b[30m";
+			for (i = 0; i < SIZE_LINE; i++) screen += str[i];
+			screen += "\x1b[48;2;16;16;192m\x1b[97m";
+			screen += vl;
+			screen += SPACE;
+			screen += vl;
+			screen += vl;
+			screen += SPACE;
+			screen += rbc;
+			for (i = 0; i < SIZE_LINE; i++) screen += hl;
+			screen += lbc;
+			screen += SPACE;
 
 			i = 0;
 			while (i++ < SIZE_FREE_LINE / 2)
 			{
-				cout << vl << endl << vl;
-				for (int j = 0; j < SIZE_WINDOW; j++) cout << SPACE;
+				screen += vl;
+				screen += vl;
+				for (int j = 0; j < SIZE_WINDOW; j++) screen += SPACE;
 			}
-			cout << vl << endl << rc;
-			for (i = 0; i < SIZE_WINDOW; i++) cout << hl;
-			cout << lc << endl;
+			screen += vl;
+			screen += rc;
+			for (i = 0; i < SIZE_WINDOW; i++) screen += hl;
+			screen += lc;
 
 			i = 0;
-			cout << vl << " You can write only: ";
-			while (CanPress[i] != '\0') cout << CanPress[i++] << ' ';
-			for (i = 0; i < SIZE_WINDOW - 59; i++) cout << SPACE;
-			cout << vl << endl << rc;
-			for (i = 0; i < SIZE_WINDOW; i++) cout << hl;
-			cout << lc << endl << vl << " TAB - clear all";
-			for (i = 0; i < SIZE_WINDOW - 32; i++) cout << SPACE;
-			cout << "ENTER - setting " << vl << endl << rbc;
-			for (i = 0; i < SIZE_WINDOW; i++) cout << hl;
-			cout << lbc << endl;
-			cout << "\x1b[47m\x1b[30m";
-			for (i = 0; i < SIZE_WINDOW + 2; i++) cout << SPACE;
-			cout << "\rResult: ";
+			screen += vl;
+			screen += " You can write only: ";
+			while (CanPress[i] != '\0' && CanPress[i] != SPACE)
+			{
+				screen += CanPress[i++];
+				screen += SPACE;
+			}
+			for (i = 0; i < SIZE_WINDOW - 49; i++) screen += SPACE;
+			screen += vl;
+			screen += rc;
+			for (i = 0; i < SIZE_WINDOW; i++) screen += hl;
+			screen += lc;
+			screen += vl;
+			screen += " TAB - clear all";
+			for (i = 0; i < SIZE_WINDOW - 32; i++) screen += SPACE;
+			screen += "ENTER - setting ";
+			screen += vl;
+			screen += rbc;
+			for (i = 0; i < SIZE_WINDOW; i++) screen += hl;
+			screen += lbc;
+			screen += "\x1b[47m\x1b[30m";
+			for (i = 0; i < SIZE_WINDOW + 2; i++) screen += SPACE;
+			screen += "\rResult: ";
+			cout << screen;
 			Start = 0;
 		}
 		else
@@ -126,7 +154,7 @@ int CalcByPGStudio()
 		bool isInput = 0;
 		bool isVisibleCursor = 1;
 		clock_t msec = clock() + 100;
-		while (!isInput && !FS)
+		while (!isInput)
 		{
 			while (!cin)
 			{
@@ -171,9 +199,6 @@ int CalcByPGStudio()
 				cout << '\a';
 			}
 		}
-
-		if (!Start) FS = 0;
-
 		if (cin != ESC)
 		{
 			switch (cin)
