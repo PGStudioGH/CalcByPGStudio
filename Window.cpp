@@ -11,6 +11,11 @@ int CheckFullScreen()
 
 void createWindow()
 {
+	RECT desktop;
+	const HWND hDesktop = GetDesktopWindow();
+	GetWindowRect(hDesktop, &desktop);
+	int horizontal = desktop.right;
+
 	HWND consoleWindow = GetConsoleWindow();
 	SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
 
@@ -23,8 +28,17 @@ void createWindow()
 	GetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &fontInfo);
 	fontInfo.cbSize = sizeof(fontInfo);
 	fontInfo.FontWeight = FW_NORMAL;
-	fontInfo.dwFontSize.X = 8;//18
-	fontInfo.dwFontSize.Y = 12;//24
+
+	if (horizontal < 1024)
+	{
+		fontInfo.dwFontSize.X = 8;
+		fontInfo.dwFontSize.Y = 12;
+	}
+	else {
+		fontInfo.dwFontSize.X = 18;
+		fontInfo.dwFontSize.Y = 24;
+	}
+
 	wcscpy(fontInfo.FaceName, L"Terminal");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &fontInfo);
 }

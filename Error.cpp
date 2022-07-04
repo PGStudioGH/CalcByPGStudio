@@ -15,8 +15,7 @@ void Error(const char* text, int type)
 			<< t.tm_sec /10 << t.tm_sec % 10 << " | "
 			<< t.tm_mday / 10 << t.tm_mday % 10 << '.'
 			<< t.tm_mon / 10 << t.tm_mon % 10 << '.'
-			<< t.tm_year + 1900 << std::endl;
-	create	<< text << std::endl;
-	create	<< "Error: " << type;
+			<< t.tm_year + 1900 << "\n" << text << "\n"
+			<< "Error: " << type;
 	exit(type);
 }
